@@ -1,7 +1,7 @@
 <?php
 /**
   @author Nerea Nuevo Pascual
-  @since 21/01/2020
+  @since 30/11/2020
  */
 require '../core/201020validacionFormularios.php'; //Importamos la libreria de validacion
 include '../config/confDB.php'; //Importo los datos de conexión
@@ -49,18 +49,18 @@ if ($entradaOK) {
 
         if ($resultadoSQL->rowCount() == 1) {
             $aObjetos = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
-            $_SESSION['usuarioDAW214AppLoginLogoff'] = $aObjetos->CodUsuario;
-            $_SESSION['descUsuario214'] = $aObjetos->DescUsuario;
-            $_SESSION['ultimaConexion214'] = $aObjetos->FechaHoraUltimaConexion;
-            $_SESSION['numConexiones214'] = $aObjetos->NumConexiones+1;
+            $_SESSION['usuarioDAW214'] = $aObjetos->T01_CodUsuario;
+            $_SESSION['descUsuario214'] = $aObjetos->T01_DescUsuario;
+            $_SESSION['ultimaConexion214'] = $aObjetos->T01_FechaHoraUltimaConexion;
+            $_SESSION['numConexiones214'] = $aObjetos->T01_NumConexiones+1;
             
             $fechaSQL = "UPDATE T01_Usuario SET T01_FechaHoraUltimaConexion = " . time() . " WHERE T01_CodUsuario = :codigo;";
             $actualizarFechaSQL = $miDB->prepare($fechaSQL);
-            $actualizarFechaSQL->execute(array(':codigo' => $aObjetos->CodUsuario));
+            $actualizarFechaSQL->execute(array(':codigo' => $aObjetos->T01_CodUsuario));
             
             $conexionesSQL = "UPDATE T01_Usuario SET T01_NumConexiones = T01_NumConexiones + 1 WHERE T01_CodUsuario = :codigo;";
             $actualizarConexionesSQL = $miDB->prepare($conexionesSQL);
-            $actualizarConexionesSQL->execute(array(':codigo' => $aObjetos->CodUsuario));
+            $actualizarConexionesSQL->execute(array(':codigo' => $aObjetos->T01_CodUsuario));
             header("Location: programa.php");
         } else {
             header('Location: login.php');
@@ -97,7 +97,7 @@ if ($entradaOK) {
         </head>
         <body>
             <header>
-                <h1>Proyecto Log In / Log Out</h1>
+                <h1>Log In / Log Out - Tema 5</h1>
             </header>
             <h3>INICIAR SESIÓN</h3>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -118,12 +118,12 @@ if ($entradaOK) {
                     <br>
                     <div class="obligatorio">
                         <input type="submit" name="enviar" id="enviar" value="Iniciar sesión">
-                        <input type="submit" name="registrar" id="registrar" value="Registrarse">
+                        <!-- <input type="submit" name="registrar" id="registrar" value="Registrarse">-->
                     </div>
                 </fieldset>
             </form>
             <footer>&COPY; Nerea Nuevo Pascual
-                <a href="https://github.com/NereaNuevo13/LoginLogoffTema5" target="_blank">
+                <a href="https://github.com/NereaNuevo13/ProyectoLogInLogOut" target="_blank">
                     <img src="../webroot/images/github.png" width="40" height="40">
                 </a>
             </footer>

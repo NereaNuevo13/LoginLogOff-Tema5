@@ -17,6 +17,11 @@ input{
     border-radius: 10px;
 }
 
+.box{
+    padding: 30px;
+    text-align: center;
+    margin: 0 auto;
+}
 
 input[type = submit], input[type = button]{
     border: 2px solid black;
@@ -47,6 +52,7 @@ form{
 h3{
     text-align: center;
 }
+
 h1{
     background-color: black;
     padding: 15px;
