@@ -1,7 +1,7 @@
 <?php
 session_start(); //recupero la sesion creada en login.php
 
-if (!isset($_SESSION['usuarioDAW214'])) {
+if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) {
     header('location: login.php');
 }
 

@@ -1,7 +1,7 @@
 <?php
 session_start(); //recupero la sesion creada en login.php
 
-if (!isset($_SESSION['usuarioDAW214'])) { //si la sesion no se ha recuperado, te manda a login.php para logearte
+if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //si la sesion no se ha recuperado, te manda a login.php para logearte
     header('Location: login.php');
 }
 
@@ -73,13 +73,13 @@ if (isset($_POST["cerrar"])) {
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="obligatorio">
                     <input type="submit" name="detalle" id="detalle" value="Detalles">
-                    <input type="submit" name="editar" id="editar" value="Editar Perfil"><br><br>
+                    <!--<input type="submit" name="editar" id="editar" value="Editar Perfil"><br><br>-->
                     <div class="cerrarS"><input type="submit" name="cerrar" id="cerrar" value="Cerrar Sesión"></div>
                 </div>
             </form>
         </div>
         <footer>&COPY; Nerea Nuevo Pascual
-            <a href="https://github.com/NereaNuevo13/ProyectoLogInLogOut" target="_blank">
+            <a href="https://github.com/NereaNuevo13/ProyectoLogInLogOut/tree/developer" target="_blank">
                 <img src="../webroot/images/github.png" width="40" height="40">
             </a>
         </footer>

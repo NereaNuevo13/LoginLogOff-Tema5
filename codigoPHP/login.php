@@ -49,7 +49,7 @@ if ($entradaOK) {
 
         if ($resultadoSQL->rowCount() == 1) {
             $aObjetos = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
-            $_SESSION['usuarioDAW214'] = $aObjetos->T01_CodUsuario;
+            $_SESSION['usuarioDAW214LogInLogOutTema5'] = $aObjetos->T01_CodUsuario;
             $_SESSION['descUsuario214'] = $aObjetos->T01_DescUsuario;
             $_SESSION['ultimaConexion214'] = $aObjetos->T01_FechaHoraUltimaConexion;
             $_SESSION['numConexiones214'] = $aObjetos->T01_NumConexiones+1;
@@ -97,7 +97,7 @@ if ($entradaOK) {
         </head>
         <body>
             <header>
-                <h1>Log In / Log Out - Tema 5</h1>
+                <h1>Log In / Log Out - Tema 5<a hreF="../../../../proyectos.html"><img src="../webroot/images/volver.png" width="70" height="40" align = "right"></a></h1>
             </header>
             <h3>INICIAR SESIÓN</h3>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -123,7 +123,7 @@ if ($entradaOK) {
                 </fieldset>
             </form>
             <footer>&COPY; Nerea Nuevo Pascual
-                <a href="https://github.com/NereaNuevo13/ProyectoLogInLogOut" target="_blank">
+                <a href="https://github.com/NereaNuevo13/ProyectoLogInLogOut/tree/developer" target="_blank">
                     <img src="../webroot/images/github.png" width="40" height="40">
                 </a>
             </footer>
