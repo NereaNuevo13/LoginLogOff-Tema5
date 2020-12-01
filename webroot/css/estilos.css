@@ -17,6 +17,14 @@ input{
     border-radius: 10px;
 }
 
+.select-css{
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: .375rem .75rem;
+    border-radius: .25rem;
+    background-color: #E7E7E7;
+}
+
 .box{
     padding: 30px;
     text-align: center;
