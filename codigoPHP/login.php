@@ -50,9 +50,7 @@ if ($entradaOK) {
         if ($resultadoSQL->rowCount() == 1) {
             $aObjetos = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
             $_SESSION['usuarioDAW214LogInLogOutTema5'] = $aObjetos->T01_CodUsuario;
-            $_SESSION['descUsuario214'] = $aObjetos->T01_DescUsuario;
             $_SESSION['ultimaConexion214'] = $aObjetos->T01_FechaHoraUltimaConexion;
-            $_SESSION['numConexiones214'] = $aObjetos->T01_NumConexiones+1;
             
             $fechaSQL = "UPDATE T01_Usuario SET T01_FechaHoraUltimaConexion = " . time() . " WHERE T01_CodUsuario = :codigo;";
             $actualizarFechaSQL = $miDB->prepare($fechaSQL);

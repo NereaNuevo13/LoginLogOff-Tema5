@@ -21,8 +21,30 @@ if (isset($_POST["cerrar"])) {
 }
 
 require_once '../core/201020validacionFormularios.php';
+require_once ('../config/confDB.php');
+
 $errorIdioma = null; //Creamos e inicializamos $errorIdioma a null, en ella almacenaremos (si hay) los errores al validar el campo idioma del formulario
 $entradaOK = true; //Creamos e inicializamos $entradaOK a true
+
+try { // Bloque de código que puede tener excepciones en el objeto PDO
+    $miDB = new PDO(HOST, USUARIO, PASS); // creo un objeto PDO con la conexion a la base de datos
+    $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Establezco el atributo para la apariciopn de errores y le pongo el modo para que cuando haya un error se lance una excepcion
+
+    $consultaSQL = "SELECT T01_NumConexiones, T01_DescUsuario FROM T01_Usuario WHERE T01_CodUsuario=:codigo";
+    $resultadoSQL = $miDB->prepare($consultaSQL); // prepara la consulta
+    $resultadoSQL->bindParam(":codigo", $_SESSION['usuarioDAW214LogInLogOutTema5']);
+    $resultadoSQL->execute(); // ejecuto la consulta pasando los parametros del array de parametros
+
+    $aObjetos = $resultadoSQL->fetchObject();
+    $numConexiones = $aObjetos->T01_NumConexiones;
+    $descUsuario = $aObjetos->T01_DescUsuario;
+    
+} catch (PDOException $mensajeError) {
+    echo "<h4>Se ha producido un error. Disculpe las molestias</h4>";
+} finally { // codigo que se ejecuta haya o no errores
+    unset($miDB); // destruyo la variable 
+}
+
 
 if (isset($_REQUEST['aceptar'])) { //Comprobamos que el usuario haya enviado el formulario
     $errorIdioma = validacionFormularios::validarElementoEnLista($_REQUEST['idioma'], ['es', 'en', 'fr']); //Validamos el elemento lista del formulario, de tener error almacenamos el mensaje en la variable $errorIdioma
@@ -91,53 +113,58 @@ if ($entradaOK) { // Si el usuario ha rellenado el formulario correctamente rell
             if (isset($_COOKIE['idioma'])) {//Comprobamos que existe $_COOKIE['idioma'] y ($_COOKIE['saludo']
                 if ($_COOKIE['idioma'] == 'es') {//Si el idioma almacenado en la cookie idioma es español
                     ?>  
-                    <h3>¡Bienvenid@ <?php echo $_SESSION['descUsuario214']; ?>!</h3>
+                    <h3>¡Bienvenid@ <?php echo $descUsuario; ?>!</h3>
                     <?php
                 }
                 if ($_COOKIE['idioma'] == 'en') {//Si el idioma almacenado en la cookie idioma es ingles
                     ?>   
-                    <h3>¡Hello <?php echo $_SESSION['descUsuario214']; ?>!</h3>
+                    <h3>¡Hello <?php echo $descUsuario; ?>!</h3>
                     <?php
                 }
                 if ($_COOKIE['idioma'] == 'fr') {//Si el idioma almacenado en la cookie idioma es francés
                     ?>   
-                    <h3>¡Salut <?php echo $_SESSION['descUsuario214']; ?>!</h3>
+                    <h3>¡Salut <?php echo $descUsuario; ?>!</h3>
                     <?php
                 }
+            } else {
+                ?> 
+                <h3>¡Bienvenid@ <?php echo $descUsuario; ?>!</h3>
+                <?php
             }
             ?>
+
             <?php
             if ($_SESSION['ultimaConexion214'] === null) {
                 echo "<h3>Esta es la primera vez que te conectas. Pásalo bien ^^</h3>";
             } else {
                 ?>
-                <h3>Usted se ha conectado <?php echo $_SESSION['numConexiones214'] . " veces"; ?></h3>
+                <h3>Usted se ha conectado <?php echo $numConexiones . " veces"; ?></h3>
                 <h3>Su última conexión fue el día <?php echo date('d/m/Y', $_SESSION['ultimaConexion214']); ?> a las <?php echo date('H:i:s', $_SESSION['ultimaConexion214']); ?></h3>
             <?php } ?>
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="obligatorio">
                     <select id="idioma" class="select-css" name="idioma">
                         <option value="es" <?php
-                        if (isset($_COOKIE['idioma'])) {//si existe la cookie idioma
-                            if ($_COOKIE['idioma'] == 'es') {//Si el idioma almacenado es español
-                                echo 'selected'; //Será el valor seleccionado en nuestra lista
-                            }
-                        }
-                        ?>>Español</option>
+            if (isset($_COOKIE['idioma'])) {//si existe la cookie idioma
+                if ($_COOKIE['idioma'] == 'es') {//Si el idioma almacenado es español
+                    echo 'selected'; //Será el valor seleccionado en nuestra lista
+                }
+            }
+            ?>>Español</option>
                         <option value="en" <?php
                         if (isset($_COOKIE['idioma'])) {//si existe la cookie idioma
                             if ($_COOKIE['idioma'] == 'en') {//Si el idioma almacenado es ingles
                                 echo 'selected'; //Será el valor seleccionado en nuestra lista
                             }
                         }
-                        ?>>English</option>
+            ?>>English</option>
                         <option value="fr" <?php
                         if (isset($_COOKIE['idioma'])) {//si existe la cookie idioma
                             if ($_COOKIE['idioma'] == 'fr') {//Si el idioma almacenado es frances
                                 echo 'selected'; //Será el valor seleccionado en nuestra lista
                             }
                         }
-                        ?>>Français</option>
+            ?>>Français</option>
                     </select><br><br>
                     <input type="submit" name="aceptar" value="Aceptar Cookies">
                     <input type="submit" name="detalle" id="detalle" value="Detalles">
