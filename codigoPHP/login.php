@@ -7,7 +7,6 @@ require '../core/201020validacionFormularios.php'; //Importamos la libreria de v
 include '../config/confDB.php'; //Importo los datos de conexión
 
 $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
-session_start();
 
 $aErrores = [
     'nombre' => null,
@@ -49,16 +48,20 @@ if ($entradaOK) {
 
         if ($resultadoSQL->rowCount() == 1) {
             $aObjetos = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
+            session_start();
             $_SESSION['usuarioDAW214LogInLogOutTema5'] = $aObjetos->T01_CodUsuario;
-            $_SESSION['ultimaConexion214'] = $aObjetos->T01_FechaHoraUltimaConexion;
+            $_SESSION['ultimaConexionAnterior'] = $aObjetos->T01_FechaHoraUltimaConexion;
             
             $fechaSQL = "UPDATE T01_Usuario SET T01_FechaHoraUltimaConexion = " . time() . " WHERE T01_CodUsuario = :codigo;";
             $actualizarFechaSQL = $miDB->prepare($fechaSQL);
-            $actualizarFechaSQL->execute(array(':codigo' => $aObjetos->T01_CodUsuario));
+            $actualizarFechaSQL->bindParam(":codigo", $_SESSION['usuarioDAW214LogInLogOutTema5']);
+            $actualizarFechaSQL->execute();
             
             $conexionesSQL = "UPDATE T01_Usuario SET T01_NumConexiones = T01_NumConexiones + 1 WHERE T01_CodUsuario = :codigo;";
             $actualizarConexionesSQL = $miDB->prepare($conexionesSQL);
-            $actualizarConexionesSQL->execute(array(':codigo' => $aObjetos->T01_CodUsuario));
+            $actualizarConexionesSQL->bindParam(":codigo", $_SESSION['usuarioDAW214LogInLogOutTema5']);
+            $actualizarConexionesSQL->execute();
+            
             header("Location: programa.php");
         } else {
             header('Location: login.php');
