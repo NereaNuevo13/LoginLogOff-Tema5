@@ -119,7 +119,7 @@ if ($entradaOK) {
                     <br>
                     <div class="obligatorio">
                         <input type="submit" name="enviar" id="enviar" value="Iniciar sesión">
-                        <!-- <input type="submit" name="registrar" id="registrar" value="Registrarse">-->
+                        <input type="submit" name="registrar" id="registrar" value="Registrarse">
                     </div>
                 </fieldset>
             </form>

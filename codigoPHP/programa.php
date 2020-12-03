@@ -46,20 +46,17 @@ try { // Bloque de código que puede tener excepciones en el objeto PDO
 if (isset($_REQUEST['idioma'])) {
     if ($_REQUEST['idioma'] === "es") {
         setcookie('idioma', "es"); //La Cookie tiene un periodo de vida de 7 días
-        header("Location: programa.php");
     }
 
     if ($_REQUEST['idioma'] === "en") {
         setcookie('idioma', "en"); //La Cookie tiene un periodo de vida de 7 días
-        header("Location: programa.php");
     }
 
     if ($_REQUEST['idioma'] === "fr") {
         setcookie('idioma', "fr"); //La Cookie tiene un periodo de vida de 7 días
-        header("Location: programa.php");
     }
+    header("Location: programa.php");
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -101,11 +98,6 @@ if (isset($_REQUEST['idioma'])) {
             <h1>Proyecto Log In / Log Out</h1>
         </header>
         <div class="box">
-            <nav class="idioma">
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=es"><button><img src="../webroot/images/spain.png" width="30" height="20"></button></a>
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=en"><button><img src="../webroot/images/usa.png" width="30" height="20"></button></a>
-                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=fr"><button><img src="../webroot/images/francia.png" width="30" height="20"></button></a>
-            </nav>
             <h2>USUARIO CORRECTO</h2>
             <?php
             if (isset($_COOKIE['idioma'])) {//Comprobamos que existe $_COOKIE['idioma'] y ($_COOKIE['saludo']
@@ -139,11 +131,16 @@ if (isset($_REQUEST['idioma'])) {
                 <h3>Usted se ha conectado <?php echo $numConexiones . " veces"; ?></h3>
                 <h3>Su última conexión fue el día <?php echo date('d/m/Y', $_SESSION['ultimaConexionAnterior']); ?> a las <?php echo date('H:i:s', $_SESSION['ultimaConexionAnterior']); ?></h3>
             <?php } ?>
+            <nav class="idioma">
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=es"><button><img src="../webroot/images/spain.png" width="30" height="20"></button></a>
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=en"><button><img src="../webroot/images/usa.png" width="30" height="20"></button></a>
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=fr"><button><img src="../webroot/images/francia.png" width="30" height="20"></button></a>
+            </nav>
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="obligatorio">
                     <br>
                     <input type="submit" name="detalle" id="detalle" value="Detalles">
-                    <!--<input type="submit" name="editar" id="editar" value="Editar Perfil"><br><br>-->
+                    <input type="submit" name="editar" id="editar" value="Editar Perfil"><br><br>
                     <div class="cerrarS"><input type="submit" name="cerrar" id="cerrar" value="Cerrar Sesión"></div>
                 </div>
             </form>
