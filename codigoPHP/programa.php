@@ -1,4 +1,9 @@
 <?php
+/**
+  @author Nerea Nuevo Pascual
+  @since 03/12/2020
+ */
+
 session_start(); //recupero la sesion creada en login.php
 
 if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //si la sesion no se ha recuperado, te manda a login.php para logearte
@@ -6,24 +11,26 @@ if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //si la sesion no se h
 }
 
 if (isset($_POST["detalle"])) {
-    header('Location: detalle.php');
+    header('Location: detalle.php'); //Si pulsa el boton de detalle se va a la ventana de detalle
     exit;
 }
 
 if (isset($_POST["editar"])) {
-    header('Location: editarPerfil.php');
+    header('Location: editarPerfil.php'); //Si pulsa el boton de editar se va a la ventana de editar perfil
     exit;
 }
 
 if (isset($_POST["cerrar"])) {
     session_destroy();
-    header('location: login.php');
+    header('location: login.php'); //Si pulsa el boton de cerrar sesion se va a la ventana del login destruyendo la sesion actual
 }
 
-require_once '../core/201020validacionFormularios.php';
-require_once ('../config/confDB.php');
 
-$entradaOK = true;
+//Si el usuario decide quedarse en la pagina se importarán los archivos necesarios
+
+require_once '../core/201020validacionFormularios.php'; //Libreria de Validacion de los Formularios
+require_once ('../config/confDB.php'); //Configuración de la base de datos
+
 
 try { // Bloque de código que puede tener excepciones en el objeto PDO
     $miDB = new PDO(HOST, USUARIO, PASS);
@@ -34,30 +41,31 @@ try { // Bloque de código que puede tener excepciones en el objeto PDO
     $resultadoSQL->bindParam(":codigo", $_SESSION['usuarioDAW214LogInLogOutTema5']);
     $resultadoSQL->execute();
 
-    $aObjetos = $resultadoSQL->fetchObject();
-    $numConexiones = $aObjetos->T01_NumConexiones;
-    $descUsuario = $aObjetos->T01_DescUsuario;
+    $usuario = $resultadoSQL->fetchObject();
+    $numConexiones = $usuario->T01_NumConexiones;
+    $descUsuario = $usuario->T01_DescUsuario;
+    
 } catch (PDOException $mensajeError) {
     echo "<h4>Se ha producido un error. Disculpe las molestias</h4>";
 } finally { // codigo que se ejecuta haya o no errores
     unset($miDB); // destruyo la variable 
 }
 
-if (isset($_REQUEST['idioma'])) {
-    if ($_REQUEST['idioma'] === "es") {
-        setcookie('idioma', "es"); //La Cookie tiene un periodo de vida de 7 días
+if (isset($_GET['idioma'])) {
+    if ($_GET['idioma'] === "es") {
+        setcookie('idioma', "es", time() + 7 * 24 * 60 * 60); //La Cookie tiene un periodo de vida de 7 días
     }
 
-    if ($_REQUEST['idioma'] === "en") {
-        setcookie('idioma', "en"); //La Cookie tiene un periodo de vida de 7 días
+    if ($_GET['idioma'] === "en") {
+        setcookie('idioma', "en", time() + 7 * 24 * 60 * 60); //La Cookie tiene un periodo de vida de 7 días
     }
 
-    if ($_REQUEST['idioma'] === "fr") {
-        setcookie('idioma', "fr"); //La Cookie tiene un periodo de vida de 7 días
+    if ($_GET['idioma'] === "fr") {
+        setcookie('idioma', "fr", time() + 7 * 24 * 60 * 60); //La Cookie tiene un periodo de vida de 7 días
     }
     
-    if ($_REQUEST['idioma'] === "ch") {
-        setcookie('idioma', "ch"); //La Cookie tiene un periodo de vida de 7 días
+    if ($_GET['idioma'] === "ch") {
+        setcookie('idioma', "ch", time() + 7 * 24 * 60 * 60); //La Cookie tiene un periodo de vida de 7 días
     }
     
     header("Location: programa.php");

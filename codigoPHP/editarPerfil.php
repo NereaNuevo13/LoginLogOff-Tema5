@@ -1,12 +1,10 @@
 <?php
 /**
   @author Nerea Nuevo Pascual
-  @since 28/01/2020
+  @since 03/12/2020
  */
+
 session_start();
-$entradaOK = true;
-require_once '../core/201020validacionFormularios.php';
-require_once ('../config/confDB.php');
 
 if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //Si no has pasado por el login, te redirige para allá
     header("Location: login.php");
@@ -22,6 +20,10 @@ if (isset($_POST["editarPass"])) {
     exit;
 }
 
+require_once '../core/201020validacionFormularios.php'; //Libreria de Validacion de los Formularios
+require_once ('../config/confDB.php'); //Configuración de la base de datos
+$entradaOK = true;
+
 $aErrores = [
     'descripcion' => null
 ];
@@ -31,13 +33,13 @@ try {
     $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $resultado = $miDB->query("SELECT * FROM T01_Usuario WHERE T01_CodUsuario = '" . $_SESSION['usuarioDAW214LogInLogOutTema5'] . "';");
-    $aObjeto = $resultado->fetchObject();
-    $datos = [
-        'codigo' => $aObjeto->T01_CodUsuario,
-        'descripcion' => $aObjeto->T01_DescUsuario,
-        'tipo' => $aObjeto->T01_Perfil,
-        'ultConexion' => $aObjeto->T01_FechaHoraUltimaConexion,
-        'conexiones' => $aObjeto->T01_NumConexiones
+    $usuario = $resultado->fetchObject();
+    $datosUsuario = [
+        'codigo' => $usuario->T01_CodUsuario,
+        'descripcion' => $usuario->T01_DescUsuario,
+        'tipo' => $usuario->T01_Perfil,
+        'ultConexion' => $usuario->T01_FechaHoraUltimaConexion,
+        'conexiones' => $usuario->T01_NumConexiones
     ];
 } catch (PDOException $mensajeError) { //Cuando se produce una excepcion se corta el programa y salta la excepción con el mensaje de error
     echo "<h3>Mensaje de ERROR</h3>";
@@ -117,27 +119,27 @@ if ($entradaOK) {
                 <div class="box">
                     <div class="obligatorio">
                         <label for="nombre">Nombre del Usuario: </label>
-                        <input type="text" id="nombre" name="nombre"value="<?php echo $datos['codigo'] ?>" disabled><br>   
+                        <input type="text" id="nombre" name="nombre"value="<?php echo $datosUsuario['codigo'] ?>" disabled><br>   
                     </div>
                     <br/>
                     <div class="obligatorio">
                         <label for="descripcion">Descripción del Usuario: </label>
-                        <input type="text" id="descripcion" name="descripcion" value="<?php echo $datos['descripcion']; ?>"><br>
+                        <input type="text" id="descripcion" name="descripcion" value="<?php echo $datosUsuario['descripcion']; ?>"><br>
                     </div>
                     <br/>
                     <div class="obligatorio">
                         <label for="tipo">Tipo de Usuario: </label> 
-                        <input type="text" id="tipo" name="tipo" value="<?php echo $datos['tipo'] ?>" disabled><br>      
+                        <input type="text" id="tipo" name="tipo" value="<?php echo $datosUsuario['tipo'] ?>" disabled><br>      
                     </div>
                     <br/>
                     <div class="obligatorio">
                         <label for="conexiones">Número de Conexiones: </label> 
-                        <input type="text" id="conexiones" name="conexiones" value="<?php echo $datos['conexiones'] ?>" disabled><br>        
+                        <input type="text" id="conexiones" name="conexiones" value="<?php echo $datosUsuario['conexiones'] ?>" disabled><br>        
                     </div>
                     <br/>
                     <div class="obligatorio">
                         <label for="ultConexion">Fecha de la Última Conexión: </label> 
-                        <input type="text" id="ultConexion" name="ultConexion" value="<?php echo date('d/m/Y - H:i:s', $datos['ultConexion']) ?>" disabled><br>        
+                        <input type="text" id="ultConexion" name="ultConexion" value="<?php echo date('d/m/Y - H:i:s', $datosUsuario['ultConexion']) ?>" disabled><br>        
                     </div>
                     <br/>
                     <div class="obligatorio">

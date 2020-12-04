@@ -1,12 +1,10 @@
 <?php
 /**
   @author Nerea Nuevo Pascual
-  @since 28/01/2020
+  @since 03/12/2020
  */
+
 session_start();
-$entradaOK = true;
-require_once '../core/201020validacionFormularios.php';
-require_once ('../config/confDB.php');
 
 if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //Si no has pasado por el login, te redirige para allá
     header("Location: login.php");
@@ -21,6 +19,10 @@ if (isset($_POST["editarPass"])) {
     header('Location: editarPassword.php');
     exit;
 }
+
+$entradaOK = true;
+require_once '../core/201020validacionFormularios.php'; //Libreria de Validacion de los Formularios
+require_once ('../config/confDB.php'); //Configuración de la base de datos
 
 $aErrores = [
     'passVieja' => null,
