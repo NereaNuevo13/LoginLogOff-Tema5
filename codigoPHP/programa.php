@@ -55,6 +55,11 @@ if (isset($_REQUEST['idioma'])) {
     if ($_REQUEST['idioma'] === "fr") {
         setcookie('idioma', "fr"); //La Cookie tiene un periodo de vida de 7 días
     }
+    
+    if ($_REQUEST['idioma'] === "ch") {
+        setcookie('idioma', "ch"); //La Cookie tiene un periodo de vida de 7 días
+    }
+    
     header("Location: programa.php");
 }
 ?>
@@ -116,6 +121,12 @@ if (isset($_REQUEST['idioma'])) {
                     <h3>¡Salut <?php echo $descUsuario; ?>!</h3>
                     <?php
                 }
+                
+                if ($_COOKIE['idioma'] == 'ch') {//Si el idioma almacenado en la cookie idioma es francés
+                    ?>   
+                    <h3>¡他妈的 <?php echo $descUsuario; ?>!</h3>
+                    <?php
+                }
             } else {
                 ?> 
                 <h3>¡Bienvenid@ <?php echo $descUsuario; ?>!</h3>
@@ -135,6 +146,7 @@ if (isset($_REQUEST['idioma'])) {
                 <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=es"><button><img src="../webroot/images/spain.png" width="30" height="20"></button></a>
                 <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=en"><button><img src="../webroot/images/usa.png" width="30" height="20"></button></a>
                 <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=fr"><button><img src="../webroot/images/francia.png" width="30" height="20"></button></a>
+                <a href="<?php echo $_SERVER['PHP_SELF'] ?>?idioma=ch"><button><img src="../webroot/images/china.jpg" width="30" height="20"></button></a>
             </nav>
             <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
                 <div class="obligatorio">

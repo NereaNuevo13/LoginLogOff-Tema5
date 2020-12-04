@@ -87,7 +87,7 @@ if ($entradaOK) {
                     margin: 0 auto;
                     margin-left: 10%;
                 }
-                
+
                 #editar{
                     display: inline-block;
                     margin-left: 65px;
