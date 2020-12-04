@@ -1,12 +1,17 @@
 <?php
+/**
+  @author Nerea Nuevo Pascual
+  @since 03/12/2020
+ */
+
 session_start(); //recupero la sesion creada en login.php
 
-if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) {
+if (!isset($_SESSION['usuarioDAW214LogInLogOutTema5'])) { //si la sesion no se ha recuperado, te manda a login.php para logearte
     header('location: login.php');
 }
 
 if (isset($_POST["volver"])) {
-    header('Location: programa.php');
+    header('Location: programa.php'); //Si pulsa el boton de volver se va a la ventana del programa
     exit;
 }
 ?>

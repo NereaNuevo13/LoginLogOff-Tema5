@@ -1,8 +1,9 @@
 <?php
 /**
   @author Nerea Nuevo Pascual
-  @since 30/11/2020
+  @since 03/12/2020
  */
+
 require '../core/201020validacionFormularios.php'; //Importamos la libreria de validacion
 include '../config/confDB.php'; //Importo los datos de conexión
 
@@ -47,10 +48,10 @@ if ($entradaOK) {
         $resultadoSQL->execute();
 
         if ($resultadoSQL->rowCount() == 1) {
-            $aObjetos = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
+            $usuario = $resultadoSQL->fetchObject(); //transforma los valores en objetos y me permite seleccionarlos   
             session_start();
-            $_SESSION['usuarioDAW214LogInLogOutTema5'] = $aObjetos->T01_CodUsuario;
-            $_SESSION['ultimaConexionAnterior'] = $aObjetos->T01_FechaHoraUltimaConexion;
+            $_SESSION['usuarioDAW214LogInLogOutTema5'] = $usuario->T01_CodUsuario;
+            $_SESSION['ultimaConexionAnterior'] = $usuario->T01_FechaHoraUltimaConexion;
             
             $fechaSQL = "UPDATE T01_Usuario SET T01_FechaHoraUltimaConexion = " . time() . " WHERE T01_CodUsuario = :codigo;";
             $actualizarFechaSQL = $miDB->prepare($fechaSQL);

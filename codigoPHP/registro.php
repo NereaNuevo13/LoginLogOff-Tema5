@@ -1,10 +1,11 @@
 <?php
 /**
   @author Nerea Nuevo Pascual
-  @since 21/01/2020
+  @since 03/12/2020
  */
-require_once '../core/201020validacionFormularios.php';
-require_once ('../config/confDB.php');
+
+require_once '../core/201020validacionFormularios.php'; //Importamos la libreria de validacion
+require_once ('../config/confDB.php'); //Importo los datos de conexión
 
 $entradaOK = true; //Inicializamos una variable que nos ayudara a controlar si todo esta correcto
 session_start();
