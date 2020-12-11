@@ -23,7 +23,7 @@ if (isset($_POST["registrar"])) {
 if (isset($_POST['enviar'])) { //Si se ha pulsado enviar
     //La posición del array de errores recibe el mensaje de error si hubiera
     $aErrores['nombre'] = validacionFormularios::comprobarAlfabetico($_POST['nombre'], 50, 1, 1);  //maximo, mínimo y opcionalidad
-    $aErrores['pass'] = validacionFormularios::comprobarAlfaNumerico($_POST['pass'], 20, 1, 1); //maximo, mínimo y opcionalidad
+    $aErrores['pass'] = validacionFormularios::comprobarAlfaNumerico($_POST['pass'], 20, 4, 1); //maximo, mínimo y opcionalidad
     foreach ($aErrores as $campo => $error) { //Recorre el array en busca de mensajes de error
         if ($error != null) { //Si lo encuentra vacia el campo y cambia la condiccion
             $entradaOK = false; //Cambia la condiccion de la variable

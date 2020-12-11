@@ -121,8 +121,7 @@ if ($entradaOK) {
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <fieldset>
                     <div class="obligatorio">
-                        <label>Nombre de Usuario: </label>
-                        <input type="text" id="nombre" name="nombre" value="<?php if ($aErrores['nombre'] == NULL && isset($_POST['nombre'])) { echo $_POST['nombre'];} ?>"><br>
+                        <input type="text" id="nombre" placeholder="Nombre de Usuario" name="nombre" value="<?php if ($aErrores['nombre'] == NULL && isset($_POST['nombre'])) { echo $_POST['nombre'];} ?>"><br>
                         <?php if ($aErrores['nombre'] != NULL) { ?>
                             <div class="error">
                                 <?php echo "<b>" . $aErrores['nombre'] . "</b>"; //Mensaje de error que tiene el array aErrores   ?>
@@ -131,8 +130,7 @@ if ($entradaOK) {
                     </div>
                     <br>
                     <div class="obligatorio">
-                        <label>Descripción de Usuario: </label>
-                        <input type="text" id="descripcion" name="descripcion"value="<?php if ($aErrores['descripcion'] == NULL && isset($_POST['descripcion'])) { echo $_POST['descripcion'];} ?>"><br>
+                        <input type="text" id="descripcion" placeholder="Descripción de Usuario" name="descripcion"value="<?php if ($aErrores['descripcion'] == NULL && isset($_POST['descripcion'])) { echo $_POST['descripcion'];} ?>"><br>
                         <?php if ($aErrores['descripcion'] != NULL) { ?>
                             <div class="error">
                                 <?php echo "<b>" . $aErrores['descripcion'] . "</b>"; //Mensaje de error que tiene el array aErrores   ?>
@@ -141,8 +139,7 @@ if ($entradaOK) {
                     </div>
                     <br>
                     <div class="obligatorio">
-                        <label>Introduzca Contraseña: </label> 
-                        <input type="password" id="pass" name="pass" value="<?php if ($aErrores['pass'] == NULL && isset($_POST['pass'])) { echo $_POST['pass'];} ?>"><br>
+                        <input type="password" id="pass" placeholder="Introduzca Contraseña" name="pass" value="<?php if ($aErrores['pass'] == NULL && isset($_POST['pass'])) { echo $_POST['pass'];} ?>"><br>
                             <?php if ($aErrores['pass'] != NULL) { ?>
                             <div class="error">
                             <?php echo "<b>" . $aErrores['pass'] . "</b>"; //Mensaje de error que tiene el array aErrores   ?>
@@ -151,8 +148,7 @@ if ($entradaOK) {
                     </div>
                     <br>
                     <div class="obligatorio">
-                        <label>Confirmar Contraseña: </label> 
-                        <input type="password" id="pass2" name="pass2" value="<?php if ($aErrores['pass2'] == NULL && isset($_POST['pass2'])) { echo $_POST['pass2'];} ?>"><br> 
+                        <input type="password" id="pass2" placeholder="Confirmar Contraseña" name="pass2" value="<?php if ($aErrores['pass2'] == NULL && isset($_POST['pass2'])) { echo $_POST['pass2'];} ?>"><br> 
                         <?php if ($aErrores['pass2'] != NULL) { ?>
                             <div class="error">
                             <?php echo "<b>" . $aErrores['pass2'] . "</b>"; //Mensaje de error que tiene el array aErrores   ?>
